@@ -1067,6 +1067,9 @@ CREATE TABLE IF NOT EXISTS `porfolio_hourly` (
   `portfolioid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `timestmp` bigint(20) NOT NULL,
+  `bitcoin` double NOT NULL,
+  `ethereum` double NOT NULL,
+  `litecoin` double NOT NULL,
   `amount` double unsigned NOT NULL,
   PRIMARY KEY (`portfolioid`,`userid`,`timestmp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
