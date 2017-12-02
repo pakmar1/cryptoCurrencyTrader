@@ -1,6 +1,6 @@
-# import MySQLdb as sql 
+import pymysql as sql
 import time
-from datetime import datetime
+from   datetime import datetime
 import requests as url
 
 FETCH_FREQUENCY = 5
@@ -15,40 +15,47 @@ btc_table = "bitcoindata"
 ltc_table = "litecoindata"
 eth_table = "ethereumdata"
 
-
 currency_code = 'USD'  # can also use EUR, CAD, etc.
 
-# db = sql.connect(host   = "127.0.0.1",
-# 	 			 user   = "root",
-# 				 passwd = "admin",
-# 				 db     = "cryptxmaster"
-# )
-
-# cursor = db.cursor()
-
 for _ in range(50):
+	db = sql.connect(host   = "127.0.0.1",
+		 			 user   = "root",
+					 passwd = "admin",
+					 db     = "cryptxmaster"
+	)
+
+	cursor = db.cursor()
 	time.sleep(FETCH_FREQUENCY)
 	
-	t = str(datetime.now())
-	t = t.split('.')[0]
-	
-	epoch  = int(time.mktime(time.strptime(t, pattern)))
-	
+	# API calls to fetch the prices
 	btc_price = url.get(BTC_URL).json()[0]['price_usd']
-	print('BTC price at %s : %s %s' % (epoch, btc_price, currency_code))
 	
 	ltc_price = url.get(LTC_URL).json()[0]['price_usd']
-	print('LTC price at %s : %s %s' % (epoch, ltc_price, currency_code))
 
 	eth_price = url.get(ETH_URL).json()[0]['price_usd']
-	print('ETH price at %s : %s %s' % (epoch, eth_price, currency_code))
 
-	timeStamp = epoch
-	# btcPrice  = float(price.amount)
+	# Generate the epoch
+	t = str(datetime.now())
+	t = t.split('.')[0]
+	timeStamp = int(time.mktime(time.strptime(t, pattern)))
+	
+	print('BTC price at %s : %s %s' % (timeStamp, btc_price, currency_code))
+	print('LTC price at %s : %s %s' % (timeStamp, ltc_price, currency_code))
+	print('ETH price at %s : %s %s' % (timeStamp, eth_price, currency_code))
 
-	# query = "INSERT INTO bitcoindata VALUES(%d, %d)" % (timeStamp, btcPrice)
-	# queryStatus = cursor.execute(query)
-	# print(queryStatus)
+	# Insert the prices and timestamp into the tables
+	try:
+		query = "INSERT INTO %s VALUES(%d, %d)" % (bitcoindata, timeStamp, btc_price)
+		cursor.execute(query)
 
-# db.commit()
-# db.close()
+		query = "INSERT INTO %s VALUES(%d, %d)" % (litecoindata, timeStamp, ltc_price)
+		cursor.execute(query)
+
+		query = "INSERT INTO %s VALUES(%d, %d)" % (ethereumdata, timeStamp, eth_price)
+		cursor.execute(query)
+
+	except:
+		db.rollback()
+
+	db.commit()
+	db.close()
