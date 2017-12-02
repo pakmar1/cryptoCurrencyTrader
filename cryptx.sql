@@ -13,12 +13,10 @@
 
 
 -- Dumping database structure for cryptxmaster
-DROP DATABASE IF EXISTS `cryptxmaster`;
 CREATE DATABASE IF NOT EXISTS `cryptxmaster` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cryptxmaster`;
 
 -- Dumping structure for table cryptxmaster.bankdetails
-DROP TABLE IF EXISTS `bankdetails`;
 CREATE TABLE IF NOT EXISTS `bankdetails` (
   `bankid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL DEFAULT 0,
@@ -37,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `bankdetails` (
 /*!40000 ALTER TABLE `bankdetails` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.bitcoindata
-DROP TABLE IF EXISTS `bitcoindata`;
 CREATE TABLE IF NOT EXISTS `bitcoindata` (
   `timestmp` bigint(20) NOT NULL,
   `bitcoinvalue` double NOT NULL,
@@ -372,7 +369,6 @@ INSERT INTO `bitcoindata` (`timestmp`, `bitcoinvalue`) VALUES
 /*!40000 ALTER TABLE `bitcoindata` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.carddetails
-DROP TABLE IF EXISTS `carddetails`;
 CREATE TABLE IF NOT EXISTS `carddetails` (
   `cardid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
@@ -392,7 +388,6 @@ CREATE TABLE IF NOT EXISTS `carddetails` (
 /*!40000 ALTER TABLE `carddetails` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.ethereumdata
-DROP TABLE IF EXISTS `ethereumdata`;
 CREATE TABLE IF NOT EXISTS `ethereumdata` (
   `timestmp` bigint(20) NOT NULL,
   `ethereumvalue` double NOT NULL,
@@ -727,7 +722,6 @@ INSERT INTO `ethereumdata` (`timestmp`, `ethereumvalue`) VALUES
 /*!40000 ALTER TABLE `ethereumdata` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.litecoindata
-DROP TABLE IF EXISTS `litecoindata`;
 CREATE TABLE IF NOT EXISTS `litecoindata` (
   `timestmp` bigint(20) NOT NULL,
   `litecoinvalue` double NOT NULL,
@@ -1062,7 +1056,6 @@ INSERT INTO `litecoindata` (`timestmp`, `litecoinvalue`) VALUES
 /*!40000 ALTER TABLE `litecoindata` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.porfolio_hourly
-DROP TABLE IF EXISTS `porfolio_hourly`;
 CREATE TABLE IF NOT EXISTS `porfolio_hourly` (
   `portfolioid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
@@ -1079,7 +1072,6 @@ CREATE TABLE IF NOT EXISTS `porfolio_hourly` (
 /*!40000 ALTER TABLE `porfolio_hourly` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.portfolio
-DROP TABLE IF EXISTS `portfolio`;
 CREATE TABLE IF NOT EXISTS `portfolio` (
   `portfolioid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
@@ -1097,7 +1089,6 @@ CREATE TABLE IF NOT EXISTS `portfolio` (
 /*!40000 ALTER TABLE `portfolio` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.user
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `userid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `password` varchar(50) NOT NULL,
@@ -1124,7 +1115,6 @@ INSERT INTO `user` (`userid`, `password`, `name`, `email`, `phone`, `ssn`, `addr
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.usertransaction
-DROP TABLE IF EXISTS `usertransaction`;
 CREATE TABLE IF NOT EXISTS `usertransaction` (
   `transactionid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `portfolioid` int(10) unsigned NOT NULL,
@@ -1146,7 +1136,6 @@ CREATE TABLE IF NOT EXISTS `usertransaction` (
 /*!40000 ALTER TABLE `usertransaction` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.wallet
-DROP TABLE IF EXISTS `wallet`;
 CREATE TABLE IF NOT EXISTS `wallet` (
   `walletid` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
