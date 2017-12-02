@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `bankdetails` (
   `accountnumber` bigint(20) NOT NULL DEFAULT 0,
   `rotingnumber` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`bankid`),
+  UNIQUE KEY `accountnumber` (`accountnumber`),
   KEY `user_fk` (`userid`),
   CONSTRAINT `user_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -380,6 +381,7 @@ CREATE TABLE IF NOT EXISTS `carddetails` (
   `cardname` varchar(50) NOT NULL,
   `cvv` int(5) NOT NULL,
   PRIMARY KEY (`cardid`),
+  UNIQUE KEY `cardnumber` (`cardnumber`),
   KEY `payment_usr_fk` (`userid`),
   CONSTRAINT `payment_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1103,16 +1105,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `city` varchar(50) NOT NULL,
   `country` varchar(20) NOT NULL,
   `postalcode` varchar(5) NOT NULL,
-  PRIMARY KEY (`userid`)
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `ssn` (`ssn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table cryptxmaster.user: ~4 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`userid`, `password`, `name`, `email`, `phone`, `ssn`, `address`, `city`, `country`, `postalcode`) VALUES
-	(1, 'pranav', 'Pranav Chauthaiwale', '', '4104249088', '444551234', 'Chapel', 'Baltimore', 'USA', '21227'),
-	(2, 'vineet', 'Vineet', '', '4104249088', '555339999', 'Belwood', 'Arbutus', 'USA', '21227'),
-	(3, 'ved', 'Ved', '', '1234567890', '123456789', 'Belwood', 'Arbutus', 'USA', '21227'),
-	(4, 'prasad', 'Prasad', '', '1234567890', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227');
+	(1, 'pranav', 'Pranav Chauthaiwale', 'pranav@pranav.com', '4104249088', '444551234', 'Chapel', 'Baltimore', 'USA', '21227'),
+	(2, 'vineet', 'Vineet', 'vineet@vineet.com', '4104249088', '555339999', 'Belwood', 'Arbutus', 'USA', '21227'),
+	(3, 'ved', 'Ved', 'ved@ved.com', '1234567890', '123456789', 'Belwood', 'Arbutus', 'USA', '21227'),
+	(4, 'prasad', 'Prasad', 'prasad@prasad.com', '1234567890', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.usertransaction
