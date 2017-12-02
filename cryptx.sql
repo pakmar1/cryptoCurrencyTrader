@@ -373,8 +373,8 @@ INSERT INTO `bitcoindata` (`timestmp`, `bitcoinvalue`) VALUES
 -- Dumping structure for table cryptxmaster.carddetails
 DROP TABLE IF EXISTS `carddetails`;
 CREATE TABLE IF NOT EXISTS `carddetails` (
-  `userid` int(10) unsigned NOT NULL,
   `cardid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(10) unsigned NOT NULL,
   `cardexpirydate` varchar(10) NOT NULL,
   `cardnumber` int(20) unsigned NOT NULL,
   `cardname` varchar(50) NOT NULL,
@@ -1075,8 +1075,8 @@ CREATE TABLE IF NOT EXISTS `porfolio_hourly` (
 -- Dumping structure for table cryptxmaster.portfolio
 DROP TABLE IF EXISTS `portfolio`;
 CREATE TABLE IF NOT EXISTS `portfolio` (
-  `userid` int(10) unsigned NOT NULL,
   `portfolioid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(10) unsigned NOT NULL,
   `amount` double unsigned NOT NULL DEFAULT 0,
   `bitcoin` double unsigned NOT NULL DEFAULT 0,
   `ethereum` double unsigned NOT NULL DEFAULT 0,
@@ -1093,11 +1093,11 @@ CREATE TABLE IF NOT EXISTS `portfolio` (
 -- Dumping structure for table cryptxmaster.user
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
+  `userid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `password` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` varchar(50) DEFAULT NULL,
-  `userid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `password` varchar(50) NOT NULL,
   `ssn` varchar(20) NOT NULL,
   `address` varchar(50) NOT NULL,
   `city` varchar(50) NOT NULL,
@@ -1108,11 +1108,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Dumping data for table cryptxmaster.user: ~4 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`name`, `email`, `phone`, `userid`, `password`, `ssn`, `address`, `city`, `country`, `postalcode`) VALUES
-	('Pranav Chauthaiwale', 'cpranav1@umbc.edu', '4104249088', 1, 'pranav', '444551234', 'Chapel', 'Baltimore', 'USA', '21227'),
-	('Vineet', 'vineet@vineet.com', '4104249088', 2, 'vineet', '555339999', 'Belwood', 'Arbutus', 'USA', '21227'),
-	('Ved', 'ved@ved.com', '1234567890', 3, 'ved', '123456789', 'Belwood', 'Arbutus', 'USA', '21227'),
-	('Prasad', 'prasad@prasad.com', '1234567890', 4, 'prasad', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227');
+INSERT INTO `user` (`userid`, `password`, `name`, `email`, `phone`, `ssn`, `address`, `city`, `country`, `postalcode`) VALUES
+	(1, 'pranav', 'Pranav Chauthaiwale', '', '4104249088', '444551234', 'Chapel', 'Baltimore', 'USA', '21227'),
+	(2, 'vineet', 'Vineet', '', '4104249088', '555339999', 'Belwood', 'Arbutus', 'USA', '21227'),
+	(3, 'ved', 'Ved', '', '1234567890', '123456789', 'Belwood', 'Arbutus', 'USA', '21227'),
+	(4, 'prasad', 'Prasad', '', '1234567890', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.usertransaction
@@ -1123,7 +1123,7 @@ CREATE TABLE IF NOT EXISTS `usertransaction` (
   `userid` int(10) unsigned NOT NULL,
   `type` varchar(10) NOT NULL,
   `currency` varchar(50) NOT NULL,
-  `numberofcoins` double unsigned NOT NULL,
+  `numberofcoins` double unsigned DEFAULT NULL,
   `transacationamount` double unsigned NOT NULL,
   `transactiontime` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`transactionid`),
@@ -1140,8 +1140,8 @@ CREATE TABLE IF NOT EXISTS `usertransaction` (
 -- Dumping structure for table cryptxmaster.wallet
 DROP TABLE IF EXISTS `wallet`;
 CREATE TABLE IF NOT EXISTS `wallet` (
-  `userid` int(10) unsigned NOT NULL,
   `walletid` int(20) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(10) unsigned NOT NULL,
   `amount` int(10) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`walletid`),
   KEY `wallet_usr_fk` (`userid`),
