@@ -1,8 +1,9 @@
-import pymysql as sql
 import time
+import pymysql as sql
 from   datetime import datetime
 import requests as url
 
+DEBUG = 0
 FETCH_FREQUENCY = 5
 pattern         = '%Y-%m-%d %H:%M:%S'
 
@@ -29,32 +30,39 @@ for _ in range(50):
 	
 	# API calls to fetch the prices
 	btc_price = url.get(BTC_URL).json()[0]['price_usd']
-	
 	ltc_price = url.get(LTC_URL).json()[0]['price_usd']
-
 	eth_price = url.get(ETH_URL).json()[0]['price_usd']
 
 	# Generate the epoch
 	t = str(datetime.now())
 	t = t.split('.')[0]
 	timeStamp = int(time.mktime(time.strptime(t, pattern)))
-	
-	print('BTC price at %s : %s %s' % (timeStamp, btc_price, currency_code))
-	print('LTC price at %s : %s %s' % (timeStamp, ltc_price, currency_code))
-	print('ETH price at %s : %s %s' % (timeStamp, eth_price, currency_code))
+
+	if(DEBUG):	
+		print('BTC price at %s : %s %s' % (timeStamp, btc_price, currency_code))
+		print('LTC price at %s : %s %s' % (timeStamp, ltc_price, currency_code))
+		print('ETH price at %s : %s %s' % (timeStamp, eth_price, currency_code))
 
 	# Insert the prices and timestamp into the tables
-	try:
-		query = "INSERT INTO %s VALUES(%d, %d)" % (bitcoindata, timeStamp, btc_price)
+	try:	
+		query = "INSERT INTO %s (timestmp, bitcoinvalue) VALUES(%d, %d);" % (btc_table, timeStamp, float(btc_price))
 		cursor.execute(query)
+		if(DEBUG):
+			print("Inserted BTC price")	
 
-		query = "INSERT INTO %s VALUES(%d, %d)" % (litecoindata, timeStamp, ltc_price)
+		query = "INSERT INTO %s (timestmp, bitcoinvalue) VALUES(%d, %d);" % (ltc_table, timeStamp, float(ltc_price))
 		cursor.execute(query)
+		if(DEBUG):
+			print("Inserted LTC price")
 
-		query = "INSERT INTO %s VALUES(%d, %d)" % (ethereumdata, timeStamp, eth_price)
+		query = "INSERT INTO %s (timestmp, bitcoinvalue) VALUES(%d, %d);" % (eth_table, timeStamp, float(eth_price))
 		cursor.execute(query)
+		if(DEBUG):
+			print("Inserted ETH price")
 
 	except:
+		if(DEBUG):		
+			print("ROLLBACK!")
 		db.rollback()
 
 	db.commit()
