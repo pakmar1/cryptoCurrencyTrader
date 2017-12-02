@@ -17,6 +17,24 @@ DROP DATABASE IF EXISTS `cryptxmaster`;
 CREATE DATABASE IF NOT EXISTS `cryptxmaster` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cryptxmaster`;
 
+-- Dumping structure for table cryptxmaster.bankdetails
+DROP TABLE IF EXISTS `bankdetails`;
+CREATE TABLE IF NOT EXISTS `bankdetails` (
+  `bankid` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(10) unsigned NOT NULL DEFAULT 0,
+  `bankname` varchar(50) NOT NULL DEFAULT '0',
+  `accountname` varchar(50) NOT NULL DEFAULT '0',
+  `accountnumber` bigint(20) NOT NULL DEFAULT 0,
+  `rotingnumber` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`bankid`),
+  KEY `user_fk` (`userid`),
+  CONSTRAINT `user_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table cryptxmaster.bankdetails: ~0 rows (approximately)
+/*!40000 ALTER TABLE `bankdetails` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bankdetails` ENABLE KEYS */;
+
 -- Dumping structure for table cryptxmaster.bitcoindata
 DROP TABLE IF EXISTS `bitcoindata`;
 CREATE TABLE IF NOT EXISTS `bitcoindata` (
@@ -351,6 +369,24 @@ INSERT INTO `bitcoindata` (`timestmp`, `bitcoinvalue`) VALUES
 	(1510909200, 7689.9088),
 	(1510995600, 7776.94);
 /*!40000 ALTER TABLE `bitcoindata` ENABLE KEYS */;
+
+-- Dumping structure for table cryptxmaster.carddetails
+DROP TABLE IF EXISTS `carddetails`;
+CREATE TABLE IF NOT EXISTS `carddetails` (
+  `userid` int(10) unsigned NOT NULL,
+  `cardid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cardexpirydate` varchar(10) NOT NULL,
+  `cardnumber` int(20) unsigned NOT NULL,
+  `cardname` varchar(50) NOT NULL,
+  `cvv` int(5) NOT NULL,
+  PRIMARY KEY (`cardid`),
+  KEY `payment_usr_fk` (`userid`),
+  CONSTRAINT `payment_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table cryptxmaster.carddetails: ~0 rows (approximately)
+/*!40000 ALTER TABLE `carddetails` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carddetails` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.ethereumdata
 DROP TABLE IF EXISTS `ethereumdata`;
@@ -1022,25 +1058,19 @@ INSERT INTO `litecoindata` (`timestmp`, `litecoinvalue`) VALUES
 	(1510995600, 67.41);
 /*!40000 ALTER TABLE `litecoindata` ENABLE KEYS */;
 
--- Dumping structure for table cryptxmaster.paymentdetails
-DROP TABLE IF EXISTS `paymentdetails`;
-CREATE TABLE IF NOT EXISTS `paymentdetails` (
-  `userid` int(10) unsigned NOT NULL,
-  `paymentid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `accountnumber` int(20) unsigned DEFAULT NULL,
-  `cardexpirydate` varchar(10) DEFAULT NULL,
-  `cardnumber` int(20) unsigned DEFAULT NULL,
-  `rountingnumber` int(10) unsigned DEFAULT NULL,
-  `cardname` varchar(50) DEFAULT NULL,
-  `accountname` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`paymentid`),
-  KEY `payment_usr_fk` (`userid`),
-  CONSTRAINT `payment_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
+-- Dumping structure for table cryptxmaster.porfolio_hourly
+DROP TABLE IF EXISTS `porfolio_hourly`;
+CREATE TABLE IF NOT EXISTS `porfolio_hourly` (
+  `portfolioid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `timestmp` varchar(50) NOT NULL,
+  `amount` double unsigned NOT NULL,
+  PRIMARY KEY (`portfolioid`,`userid`,`timestmp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.paymentdetails: ~0 rows (approximately)
-/*!40000 ALTER TABLE `paymentdetails` DISABLE KEYS */;
-/*!40000 ALTER TABLE `paymentdetails` ENABLE KEYS */;
+-- Dumping data for table cryptxmaster.porfolio_hourly: ~0 rows (approximately)
+/*!40000 ALTER TABLE `porfolio_hourly` DISABLE KEYS */;
+/*!40000 ALTER TABLE `porfolio_hourly` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.portfolio
 DROP TABLE IF EXISTS `portfolio`;
