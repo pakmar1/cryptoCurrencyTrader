@@ -376,9 +376,10 @@ DROP TABLE IF EXISTS `carddetails`;
 CREATE TABLE IF NOT EXISTS `carddetails` (
   `cardid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
-  `cardexpirydate` varchar(10) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
   `cardnumber` int(20) unsigned NOT NULL,
   `cardname` varchar(50) NOT NULL,
+  `cardexpirydate` varchar(10) NOT NULL,
   `cvv` int(5) NOT NULL,
   PRIMARY KEY (`cardid`),
   UNIQUE KEY `cardnumber` (`cardnumber`),
