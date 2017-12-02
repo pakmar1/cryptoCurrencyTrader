@@ -1125,7 +1125,7 @@ CREATE TABLE IF NOT EXISTS `usertransaction` (
   `currency` varchar(50) NOT NULL,
   `numberofcoins` double unsigned NOT NULL,
   `transacationamount` double unsigned NOT NULL,
-  `transactiontime` datetime NOT NULL,
+  `transactiontime` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`transactionid`),
   KEY `transac_usr_fk` (`userid`),
   KEY `transac_portfolio_fk` (`portfolioid`),
