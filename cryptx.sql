@@ -377,7 +377,7 @@ CREATE TABLE IF NOT EXISTS `carddetails` (
   `cardid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
   `nickname` varchar(50) NOT NULL,
-  `cardnumber` int(20) unsigned NOT NULL,
+  `cardnumber` varchar(50) NOT NULL,
   `cardname` varchar(50) NOT NULL,
   `cardexpirydate` varchar(10) NOT NULL,
   `cvv` int(5) NOT NULL,
@@ -1066,7 +1066,7 @@ DROP TABLE IF EXISTS `porfolio_hourly`;
 CREATE TABLE IF NOT EXISTS `porfolio_hourly` (
   `portfolioid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
-  `timestmp` varchar(50) NOT NULL,
+  `timestmp` bigint(20) NOT NULL,
   `amount` double unsigned NOT NULL,
   PRIMARY KEY (`portfolioid`,`userid`,`timestmp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1114,10 +1114,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table cryptxmaster.user: ~4 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`userid`, `password`, `name`, `email`, `phone`, `ssn`, `address`, `city`, `country`, `postalcode`) VALUES
-	(1, 'pranav', 'Pranav Chauthaiwale', 'pranav@pranav.com', '4104249088', '444551234', 'Chapel', 'Baltimore', 'USA', '21227'),
-	(2, 'vineet', 'Vineet', 'vineet@vineet.com', '4104249088', '555339999', 'Belwood', 'Arbutus', 'USA', '21227'),
+	(1, 'pranav', 'Pranav Chauthaiwale', 'cpranav1@umbc.edu', '4104249088', '444551234', 'Chapel', 'Baltimore', 'USA', '21227'),
+	(2, 'vineet', 'Vineet', 'vineeta1@umbc.edu', '4104249088', '555339999', 'Belwood', 'Arbutus', 'USA', '21227'),
 	(3, 'ved', 'Ved', 'ved@ved.com', '1234567890', '123456789', 'Belwood', 'Arbutus', 'USA', '21227'),
-	(4, 'prasad', 'Prasad', 'prasad@prasad.com', '1234567890', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227');
+	(4, 'prasad', 'Prasad', 'pakmar1@umbc.edu', '1234567890', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.usertransaction
@@ -1147,7 +1147,7 @@ DROP TABLE IF EXISTS `wallet`;
 CREATE TABLE IF NOT EXISTS `wallet` (
   `walletid` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
-  `amount` int(10) unsigned NOT NULL DEFAULT 0,
+  `amount` double unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`walletid`),
   KEY `wallet_usr_fk` (`userid`),
   CONSTRAINT `wallet_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
