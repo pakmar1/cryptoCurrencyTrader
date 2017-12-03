@@ -1,0 +1,67 @@
+
+<!doctype html>
+<div id="container" style="min-width: 400px; height: 500px; margin: 0 auto"></div>    
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>User Profile trends</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  
+  <script>
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'User portfolio and investments'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'User portfolio',
+            colorByPoint: true,
+            data: [{
+                name: 'Wallet',
+                y: 56.33
+            }, {
+                name: 'Bitcoin',
+                y: 24.03,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Ethereum',
+                y: 10.38
+            }, {
+                name: 'Litecoin',
+                y: 4.77
+            }]
+        }]
+    });
+  </script>
+</head>
+
+<body>
+    
+
+</body>
+</html>
