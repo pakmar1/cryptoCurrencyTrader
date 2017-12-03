@@ -1082,10 +1082,14 @@ CREATE TABLE IF NOT EXISTS `portfolio` (
   PRIMARY KEY (`portfolioid`),
   KEY `portfolio_usr_fk` (`userid`),
   CONSTRAINT `portfolio_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.portfolio: ~0 rows (approximately)
+-- Dumping data for table cryptxmaster.portfolio: ~2 rows (approximately)
 /*!40000 ALTER TABLE `portfolio` DISABLE KEYS */;
+INSERT INTO `portfolio` (`portfolioid`, `userid`, `amount`, `bitcoin`, `ethereum`, `litecoin`) VALUES
+	(1, 1, 1, 1, 1, 1),
+	(2, 2, 2, 2, 2, 2),
+	(3, 2, 3, 3, 3, 3);
 /*!40000 ALTER TABLE `portfolio` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.user
@@ -1122,7 +1126,7 @@ CREATE TABLE IF NOT EXISTS `usertransaction` (
   `type` varchar(10) NOT NULL,
   `currency` varchar(50) NOT NULL,
   `numberofcoins` double unsigned DEFAULT NULL,
-  `transacationamount` double unsigned NOT NULL,
+  `transactionamount` double unsigned NOT NULL,
   `transactiontime` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`transactionid`),
   KEY `transac_usr_fk` (`userid`),
