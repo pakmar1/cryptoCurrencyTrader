@@ -1055,22 +1055,6 @@ INSERT INTO `litecoindata` (`timestmp`, `litecoinvalue`) VALUES
 	(1510995600, 67.41);
 /*!40000 ALTER TABLE `litecoindata` ENABLE KEYS */;
 
--- Dumping structure for table cryptxmaster.porfolio_hourly
-CREATE TABLE IF NOT EXISTS `porfolio_hourly` (
-  `portfolioid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `timestmp` bigint(20) NOT NULL,
-  `bitcoin` double NOT NULL,
-  `ethereum` double NOT NULL,
-  `litecoin` double NOT NULL,
-  `amount` double unsigned NOT NULL,
-  PRIMARY KEY (`portfolioid`,`userid`,`timestmp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table cryptxmaster.porfolio_hourly: ~0 rows (approximately)
-/*!40000 ALTER TABLE `porfolio_hourly` DISABLE KEYS */;
-/*!40000 ALTER TABLE `porfolio_hourly` ENABLE KEYS */;
-
 -- Dumping structure for table cryptxmaster.portfolio
 CREATE TABLE IF NOT EXISTS `portfolio` (
   `portfolioid` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -1091,6 +1075,22 @@ INSERT INTO `portfolio` (`portfolioid`, `userid`, `amount`, `bitcoin`, `ethereum
 	(2, 2, 2, 2, 2, 2),
 	(3, 2, 3, 3, 3, 3);
 /*!40000 ALTER TABLE `portfolio` ENABLE KEYS */;
+
+-- Dumping structure for table cryptxmaster.portfolio_hourly
+CREATE TABLE IF NOT EXISTS `portfolio_hourly` (
+  `portfolioid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `timestmp` bigint(20) NOT NULL,
+  `bitcoin` double NOT NULL,
+  `ethereum` double NOT NULL,
+  `litecoin` double NOT NULL,
+  `amount` double unsigned NOT NULL,
+  PRIMARY KEY (`portfolioid`,`userid`,`timestmp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table cryptxmaster.portfolio_hourly: ~0 rows (approximately)
+/*!40000 ALTER TABLE `portfolio_hourly` DISABLE KEYS */;
+/*!40000 ALTER TABLE `portfolio_hourly` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.user
 CREATE TABLE IF NOT EXISTS `user` (
