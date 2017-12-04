@@ -98,4 +98,3 @@ while(1):
 		print("Connection closed.")
 
 	COMPUTE_HOURLY += 1
-
