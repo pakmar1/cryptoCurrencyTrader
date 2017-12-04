@@ -4,7 +4,7 @@ from   datetime import datetime
 import requests as url
 
 DEBUG = 1
-FETCH_FREQUENCY = 10
+FETCH_FREQUENCY = 10 # In seconds
 pattern         = '%Y-%m-%d %H:%M:%S'
 COMPUTE_HOURLY  = 0
 
@@ -84,7 +84,7 @@ while(1):
 		if(DEBUG):
 			print("Inserted ETH price")
 
-		if(not COMPUTE_HOURLY % 10):
+		if(not COMPUTE_HOURLY % 60):
 			calculatePortfolioValue(cursor, timeStamp, btc_price, ltc_price, eth_price)
 			COMPUTE_HOURLY = 0
 
