@@ -13,10 +13,12 @@
 
 
 -- Dumping database structure for cryptxmaster
+DROP DATABASE IF EXISTS `cryptxmaster`;
 CREATE DATABASE IF NOT EXISTS `cryptxmaster` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cryptxmaster`;
 
 -- Dumping structure for table cryptxmaster.bankdetails
+DROP TABLE IF EXISTS `bankdetails`;
 CREATE TABLE IF NOT EXISTS `bankdetails` (
   `bankid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL DEFAULT 0,
@@ -31,10 +33,12 @@ CREATE TABLE IF NOT EXISTS `bankdetails` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table cryptxmaster.bankdetails: ~0 rows (approximately)
+DELETE FROM `bankdetails`;
 /*!40000 ALTER TABLE `bankdetails` DISABLE KEYS */;
 /*!40000 ALTER TABLE `bankdetails` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.bitcoindata
+DROP TABLE IF EXISTS `bitcoindata`;
 CREATE TABLE IF NOT EXISTS `bitcoindata` (
   `timestmp` bigint(20) NOT NULL,
   `bitcoinvalue` double NOT NULL,
@@ -42,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `bitcoindata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table cryptxmaster.bitcoindata: ~322 rows (approximately)
+DELETE FROM `bitcoindata`;
 /*!40000 ALTER TABLE `bitcoindata` DISABLE KEYS */;
 INSERT INTO `bitcoindata` (`timestmp`, `bitcoinvalue`) VALUES
 	(1483261200, 997.6888),
@@ -369,6 +374,7 @@ INSERT INTO `bitcoindata` (`timestmp`, `bitcoinvalue`) VALUES
 /*!40000 ALTER TABLE `bitcoindata` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.carddetails
+DROP TABLE IF EXISTS `carddetails`;
 CREATE TABLE IF NOT EXISTS `carddetails` (
   `cardid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
@@ -376,18 +382,28 @@ CREATE TABLE IF NOT EXISTS `carddetails` (
   `cardnumber` varchar(50) NOT NULL,
   `cardname` varchar(50) NOT NULL,
   `cardexpirydate` varchar(10) NOT NULL,
-  `cvv` int(5) NOT NULL,
+  `cvv` varchar(10) NOT NULL,
   PRIMARY KEY (`cardid`),
   UNIQUE KEY `cardnumber` (`cardnumber`),
   KEY `payment_usr_fk` (`userid`),
   CONSTRAINT `payment_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.carddetails: ~0 rows (approximately)
+-- Dumping data for table cryptxmaster.carddetails: ~7 rows (approximately)
+DELETE FROM `carddetails`;
 /*!40000 ALTER TABLE `carddetails` DISABLE KEYS */;
+INSERT INTO `carddetails` (`cardid`, `userid`, `nickname`, `cardnumber`, `cardname`, `cardexpirydate`, `cvv`) VALUES
+	(12, 1, 'PNC', '1234333377779999', 'Pranav Chauthaiwale', '10/2017', 'null'),
+	(17, 2, '876', '686', 'aSasVineet', '08 / 686', '868'),
+	(18, 2, '879', '7979', 'aSasVineet', '09 / 979', '97'),
+	(19, 1, 'BOFA', '1234333344445555', 'Pranav Chauthaiwale', '10/2017', 'null'),
+	(22, 17, 'Debit', '4558 4562 8897 0125', 'Ved', '11 / 19', '654'),
+	(23, 16, 'PNC', '4476 3333 2991 1990', 'Prasad N Akmar', '12 / 09', '260'),
+	(24, 17, 'Credit', '6011 8795 2479 9845', 'Ved', '11 / 11', '301');
 /*!40000 ALTER TABLE `carddetails` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.ethereumdata
+DROP TABLE IF EXISTS `ethereumdata`;
 CREATE TABLE IF NOT EXISTS `ethereumdata` (
   `timestmp` bigint(20) NOT NULL,
   `ethereumvalue` double NOT NULL,
@@ -395,6 +411,7 @@ CREATE TABLE IF NOT EXISTS `ethereumdata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table cryptxmaster.ethereumdata: ~322 rows (approximately)
+DELETE FROM `ethereumdata`;
 /*!40000 ALTER TABLE `ethereumdata` DISABLE KEYS */;
 INSERT INTO `ethereumdata` (`timestmp`, `ethereumvalue`) VALUES
 	(1483261200, 8.14),
@@ -722,6 +739,7 @@ INSERT INTO `ethereumdata` (`timestmp`, `ethereumvalue`) VALUES
 /*!40000 ALTER TABLE `ethereumdata` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.litecoindata
+DROP TABLE IF EXISTS `litecoindata`;
 CREATE TABLE IF NOT EXISTS `litecoindata` (
   `timestmp` bigint(20) NOT NULL,
   `litecoinvalue` double NOT NULL,
@@ -729,6 +747,7 @@ CREATE TABLE IF NOT EXISTS `litecoindata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table cryptxmaster.litecoindata: ~322 rows (approximately)
+DELETE FROM `litecoindata`;
 /*!40000 ALTER TABLE `litecoindata` DISABLE KEYS */;
 INSERT INTO `litecoindata` (`timestmp`, `litecoinvalue`) VALUES
 	(1483261200, 4.33),
@@ -1055,7 +1074,26 @@ INSERT INTO `litecoindata` (`timestmp`, `litecoinvalue`) VALUES
 	(1510995600, 67.41);
 /*!40000 ALTER TABLE `litecoindata` ENABLE KEYS */;
 
+-- Dumping structure for table cryptxmaster.porfolio_hourly
+DROP TABLE IF EXISTS `porfolio_hourly`;
+CREATE TABLE IF NOT EXISTS `porfolio_hourly` (
+  `portfolioid` int(10) NOT NULL,
+  `userid` int(10) NOT NULL,
+  `timestmp` bigint(20) NOT NULL,
+  `bicoin` double unsigned NOT NULL,
+  `ethereum` double unsigned NOT NULL,
+  `litecoin` double unsigned NOT NULL,
+  `amount` double unsigned NOT NULL,
+  PRIMARY KEY (`portfolioid`,`userid`,`timestmp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table cryptxmaster.porfolio_hourly: ~0 rows (approximately)
+DELETE FROM `porfolio_hourly`;
+/*!40000 ALTER TABLE `porfolio_hourly` DISABLE KEYS */;
+/*!40000 ALTER TABLE `porfolio_hourly` ENABLE KEYS */;
+
 -- Dumping structure for table cryptxmaster.portfolio
+DROP TABLE IF EXISTS `portfolio`;
 CREATE TABLE IF NOT EXISTS `portfolio` (
   `portfolioid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
@@ -1066,33 +1104,21 @@ CREATE TABLE IF NOT EXISTS `portfolio` (
   PRIMARY KEY (`portfolioid`),
   KEY `portfolio_usr_fk` (`userid`),
   CONSTRAINT `portfolio_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.portfolio: ~2 rows (approximately)
+-- Dumping data for table cryptxmaster.portfolio: ~5 rows (approximately)
+DELETE FROM `portfolio`;
 /*!40000 ALTER TABLE `portfolio` DISABLE KEYS */;
 INSERT INTO `portfolio` (`portfolioid`, `userid`, `amount`, `bitcoin`, `ethereum`, `litecoin`) VALUES
-	(1, 1, 1, 1, 1, 1),
-	(2, 2, 2, 2, 2, 2),
-	(3, 2, 3, 3, 3, 3);
+	(1, 2, 34592, 0.5, 0.5, 0.1),
+	(2, 1, 0, 0, 0, 0),
+	(3, 4, 0, 0, 0, 0),
+	(4, 16, 30447, 4.9, 5, 100),
+	(5, 17, 100283, 3.2, 55, 100);
 /*!40000 ALTER TABLE `portfolio` ENABLE KEYS */;
 
--- Dumping structure for table cryptxmaster.portfolio_hourly
-CREATE TABLE IF NOT EXISTS `portfolio_hourly` (
-  `portfolioid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `timestmp` bigint(20) NOT NULL,
-  `bitcoin` double NOT NULL,
-  `ethereum` double NOT NULL,
-  `litecoin` double NOT NULL,
-  `amount` double unsigned NOT NULL,
-  PRIMARY KEY (`portfolioid`,`userid`,`timestmp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table cryptxmaster.portfolio_hourly: ~0 rows (approximately)
-/*!40000 ALTER TABLE `portfolio_hourly` DISABLE KEYS */;
-/*!40000 ALTER TABLE `portfolio_hourly` ENABLE KEYS */;
-
 -- Dumping structure for table cryptxmaster.user
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `userid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `password` varchar(50) NOT NULL,
@@ -1100,25 +1126,28 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(50) NOT NULL,
   `phone` varchar(50) DEFAULT NULL,
   `ssn` varchar(20) NOT NULL,
-  `address` varchar(50) NOT NULL,
+  `address` varchar(100) NOT NULL,
   `city` varchar(50) NOT NULL,
   `country` varchar(20) NOT NULL,
   `postalcode` varchar(5) NOT NULL,
   PRIMARY KEY (`userid`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `ssn` (`ssn`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.user: ~4 rows (approximately)
+-- Dumping data for table cryptxmaster.user: ~5 rows (approximately)
+DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`userid`, `password`, `name`, `email`, `phone`, `ssn`, `address`, `city`, `country`, `postalcode`) VALUES
-	(1, 'pranav', 'Pranav Chauthaiwale', 'cpranav1@umbc.edu', '4104249088', '444551234', 'Chapel', 'Baltimore', 'USA', '21227'),
-	(2, 'vineet', 'Vineet', 'vineeta1@umbc.edu', '4104249088', '555339999', 'Belwood', 'Arbutus', 'USA', '21227'),
-	(3, 'ved', 'Ved', 'ved@ved.com', '1234567890', '123456789', 'Belwood', 'Arbutus', 'USA', '21227'),
-	(4, 'prasad', 'Prasad', 'pakmar1@umbc.edu', '1234567890', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227');
+	(1, 'pranav', 'Pranav Chauthaiwale', 'cpranav1@umbc.edu', '4104249089', '4666666664', 'Chapel', 'Baltimore', 'USA', '21227'),
+	(2, 'qwerty', 'aSasVineet', 'vineeta1@umbc.edu', '4104249088', '555339999ddasdasdasd', 'Belwoodsad', 'Arbutus', 'USA', '21227'),
+	(4, 'prasad', 'Prasad', 'prasad@prasad.com', '1234567890', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227'),
+	(16, 'prasadprasad', 'Prasad Akmar', 'prasad@gmail.com', '4436486812', '111222333', '4761, Aldgate Grn, Arbutus', 'Baltimore', 'United States', '21227'),
+	(17, 'pass', 'Ved', 'ved@chavan.com', '4438214985', '112638795', 'Belwood', 'Arbutus', 'United States', '21227');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.usertransaction
+DROP TABLE IF EXISTS `usertransaction`;
 CREATE TABLE IF NOT EXISTS `usertransaction` (
   `transactionid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `portfolioid` int(10) unsigned NOT NULL,
@@ -1133,24 +1162,88 @@ CREATE TABLE IF NOT EXISTS `usertransaction` (
   KEY `transac_portfolio_fk` (`portfolioid`),
   CONSTRAINT `transac_portfolio_fk` FOREIGN KEY (`portfolioid`) REFERENCES `portfolio` (`portfolioid`),
   CONSTRAINT `transac_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.usertransaction: ~0 rows (approximately)
+-- Dumping data for table cryptxmaster.usertransaction: ~56 rows (approximately)
+DELETE FROM `usertransaction`;
 /*!40000 ALTER TABLE `usertransaction` DISABLE KEYS */;
+INSERT INTO `usertransaction` (`transactionid`, `portfolioid`, `userid`, `type`, `currency`, `numberofcoins`, `transactionamount`, `transactiontime`) VALUES
+	(2, 1, 2, 'Deposit', 'USD', 100, 100, 1512335085),
+	(3, 1, 2, 'Deposit', 'USD', 100, 100, 1512335261),
+	(4, 1, 2, 'Deposit', 'USD', 100, 100, 1512335448),
+	(5, 1, 2, 'Deposit', 'USD', 100, 100, 1512335568),
+	(6, 1, 2, 'Deposit', 'USD', 100, 100, 1512335581),
+	(7, 1, 2, 'Deposit', 'USD', 100, 100, 1512335602),
+	(8, 1, 2, 'Deposit', 'USD', 100, 100, 1512335646),
+	(9, 1, 2, 'Deposit', 'USD', 100, 100, 1512335691),
+	(10, 1, 2, 'Deposit', 'USD', 100, 100, 1512335914),
+	(11, 1, 2, 'Deposit', 'USD', 100, 100, 1512335926),
+	(12, 1, 2, 'Deposit', 'USD', 100, 100, 1512335980),
+	(13, 1, 2, 'Deposit', 'USD', 100, 100, 1512336011),
+	(14, 1, 2, 'Deposit', 'USD', 100, 100, 1512336028),
+	(15, 1, 2, 'Withdraw', 'USD', 100, 100, 1512336031),
+	(16, 1, 2, 'Deposit', 'USD', 100, 100, 1512336094),
+	(17, 1, 2, 'Deposit', 'USD', 100, 100, 1512336117),
+	(18, 1, 2, 'Withdraw', 'USD', 100, 100, 1512336153),
+	(19, 1, 2, 'Withdraw', 'USD', 100, 100, 1512336157),
+	(20, 1, 2, 'BUY', 'Litecoin', 0.1, 10.096, 1512337086),
+	(21, 1, 2, 'BUY', 'Litecoin', 0.1, 10.096, 1512337408),
+	(22, 1, 2, 'BUY', 'Litecoin', 5, 500.735, 1512338013),
+	(23, 1, 2, 'BUY', 'Bitcoin', 0.1, 1103.95, 1512338425),
+	(24, 1, 2, 'BUY', 'Bitcoin', 0.1, 1103.95, 1512338559),
+	(25, 1, 2, 'BUY', 'Bitcoin', 0.1, 1103.95, 1512338639),
+	(26, 1, 2, 'BUY', 'Bitcoin', 0.1, 1101.09, 1512338765),
+	(27, 1, 2, 'BUY', 'Bitcoin', 0.1, 1101.09, 1512338784),
+	(28, 1, 2, 'BUY', 'Bitcoin', 0.1, 1101.09, 1512338928),
+	(29, 1, 2, 'BUY', 'Bitcoin', 0.1, 1101.09, 1512338951),
+	(30, 1, 2, 'Deposit', 'USD', 100, 100, 1512364138),
+	(31, 5, 17, 'Deposit', 'USD', 5000, 5000, 1512366225),
+	(32, 5, 17, 'BUY', 'Bitcoin', 0.4, 4601, 1512366312),
+	(33, 4, 16, 'Deposit', 'USD', 1000, 1000, 1512366327),
+	(34, 4, 16, 'Deposit', 'USD', 100000, 100000, 1512366483),
+	(35, 1, 2, 'BUY', 'Ethereum', 0.1, 46.765, 1512366549),
+	(36, 1, 2, 'BUY', 'Ethereum', 0.1, 46.765, 1512366591),
+	(37, 4, 16, 'BUY', 'Bitcoin', 5, 57648, 1512366630),
+	(38, 4, 16, 'BUY', 'Litecoin', 100, 10063.5, 1512366761),
+	(39, 4, 16, 'SELL', 'Bitcoin', 0.1, 1152.96, 1512366802),
+	(40, 5, 17, 'SELL', 'Bitcoin', 0.1, 1152.96, 1512366815),
+	(41, 4, 16, 'Withdraw', 'USD', 4000, 4000, 1512366837),
+	(42, 5, 17, 'SELL', 'Bitcoin', 0.05, 576.48, 1512366855),
+	(43, 1, 2, 'BUY', 'Ethereum', 0.1, 46.913, 1512366897),
+	(44, 1, 2, 'BUY', 'Ethereum', 0.1, 46.913, 1512366900),
+	(45, 1, 2, 'BUY', 'Ethereum', 0.1, 46.913, 1512366922),
+	(46, 5, 17, 'SELL', 'Bitcoin', 0.05, 576.94, 1512366938),
+	(47, 1, 2, 'BUY', 'Litecoin', 0.1, 10.084, 1512366961),
+	(48, 4, 16, 'BUY', 'Ethereum', 10, 4691.25, 1512366975),
+	(49, 4, 16, 'SELL', 'Ethereum', 5, 2345.625, 1512367009),
+	(50, 5, 17, 'Deposit', 'USD', 10000, 10000, 1512367335),
+	(51, 5, 17, 'BUY', 'Litecoin', 100, 10078.7, 1512367389),
+	(52, 5, 17, 'BUY', 'Ethereum', 5, 2342.675, 1512367542),
+	(53, 5, 17, 'Deposit', 'USD', 100000, 100000, 1512367554),
+	(54, 5, 17, 'BUY', 'Ethereum', 50, 23426.75, 1512367583),
+	(55, 5, 17, 'BUY', 'Bitcoin', 5, 57728, 1512367605),
+	(56, 5, 17, 'BUY', 'Bitcoin', 0.5, 5772.8, 1512367675),
+	(57, 5, 17, 'SELL', 'Bitcoin', 2.5, 28864, 1512367748);
 /*!40000 ALTER TABLE `usertransaction` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.wallet
+DROP TABLE IF EXISTS `wallet`;
 CREATE TABLE IF NOT EXISTS `wallet` (
   `walletid` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
-  `amount` double unsigned NOT NULL DEFAULT 0,
+  `amount` int(10) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`walletid`),
   KEY `wallet_usr_fk` (`userid`),
   CONSTRAINT `wallet_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.wallet: ~0 rows (approximately)
+-- Dumping data for table cryptxmaster.wallet: ~3 rows (approximately)
+DELETE FROM `wallet`;
 /*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
+INSERT INTO `wallet` (`walletid`, `userid`, `amount`) VALUES
+	(1, 2, 34591755),
+	(2, 16, 28102),
+	(3, 17, 42219);
 /*!40000 ALTER TABLE `wallet` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
