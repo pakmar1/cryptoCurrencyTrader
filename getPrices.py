@@ -4,7 +4,7 @@ from   datetime import datetime
 import requests as url
 
 DEBUG = 1
-FETCH_FREQUENCY = 2
+FETCH_FREQUENCY = 10
 pattern         = '%Y-%m-%d %H:%M:%S'
 COMPUTE_HOURLY  = 0
 
@@ -26,14 +26,17 @@ def calculatePortfolioValue(cursor, timeStamp, btc_price, ltc_price, eth_price):
 	userIds = [x[0] for x in cursor.fetchall()]
 	
 	for uId in userIds:
-		portfolio = "SELECT portfolioid, amount, bitcoin, ethereum, litecoin from portfolio where userid = uid;"
+		getWalletAmt = "SELECT * FROM portfolio WHERE userid = %d;" % (uId)
 		cursor.execute(getWalletAmt)
-		pId, vAmnt, bcoin, ecoin, lcoin = cursor.fetchall()
-		bValue = bcoin*btc_price
-		eValue = ecoin*eth_price
-		lValue = lcoin*ltc_price
+		# print("UserID", uId)
+		# print(cursor.fetchall()[0])
+		pId, uId, vAmnt, bcoin, ecoin, lcoin = cursor.fetchall()[0]
+		bValue = bcoin*float(btc_price)
+		eValue = ecoin*float(eth_price)
+		lValue = lcoin*float(ltc_price)
+		
 		portfolioValue = vAmnt + bValue + lValue + eValue
-
+		print("Portfolio Value:", portfolioValue)
 		insertHourly = "INSERT INTO portfolio_hourly (portfolioid, userid, timestmp, bitcoin, ethereum, litecoin, amount) \
 		                VALUES (%d, %d, %d, %d, %d, %d, %d) " % (pId, uId, timeStamp, bValue, eValue, lValue, portfolioValue)
 		cursor.execute(insertHourly)
@@ -81,7 +84,7 @@ while(1):
 		if(DEBUG):
 			print("Inserted ETH price")
 
-		if(not COMPUTE_HOURLY % 60):
+		if(not COMPUTE_HOURLY % 10):
 			calculatePortfolioValue(cursor, timeStamp, btc_price, ltc_price, eth_price)
 			COMPUTE_HOURLY = 0
 
