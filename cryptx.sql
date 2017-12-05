@@ -13,12 +13,10 @@
 
 
 -- Dumping database structure for cryptxmaster
-DROP DATABASE IF EXISTS `cryptxmaster`;
 CREATE DATABASE IF NOT EXISTS `cryptxmaster` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cryptxmaster`;
 
 -- Dumping structure for table cryptxmaster.bankdetails
-DROP TABLE IF EXISTS `bankdetails`;
 CREATE TABLE IF NOT EXISTS `bankdetails` (
   `bankid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL DEFAULT 0,
@@ -38,14 +36,13 @@ DELETE FROM `bankdetails`;
 /*!40000 ALTER TABLE `bankdetails` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.bitcoindata
-DROP TABLE IF EXISTS `bitcoindata`;
 CREATE TABLE IF NOT EXISTS `bitcoindata` (
   `timestmp` bigint(20) NOT NULL,
   `bitcoinvalue` double NOT NULL,
   PRIMARY KEY (`timestmp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.bitcoindata: ~322 rows (approximately)
+-- Dumping data for table cryptxmaster.bitcoindata: ~427 rows (approximately)
 DELETE FROM `bitcoindata`;
 /*!40000 ALTER TABLE `bitcoindata` DISABLE KEYS */;
 INSERT INTO `bitcoindata` (`timestmp`, `bitcoinvalue`) VALUES
@@ -479,7 +476,6 @@ INSERT INTO `bitcoindata` (`timestmp`, `bitcoinvalue`) VALUES
 /*!40000 ALTER TABLE `bitcoindata` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.carddetails
-DROP TABLE IF EXISTS `carddetails`;
 CREATE TABLE IF NOT EXISTS `carddetails` (
   `cardid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
@@ -509,14 +505,13 @@ INSERT INTO `carddetails` (`cardid`, `userid`, `nickname`, `cardnumber`, `cardna
 /*!40000 ALTER TABLE `carddetails` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.ethereumdata
-DROP TABLE IF EXISTS `ethereumdata`;
 CREATE TABLE IF NOT EXISTS `ethereumdata` (
   `timestmp` bigint(20) NOT NULL,
   `ethereumvalue` double NOT NULL,
   PRIMARY KEY (`timestmp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.ethereumdata: ~322 rows (approximately)
+-- Dumping data for table cryptxmaster.ethereumdata: ~427 rows (approximately)
 DELETE FROM `ethereumdata`;
 /*!40000 ALTER TABLE `ethereumdata` DISABLE KEYS */;
 INSERT INTO `ethereumdata` (`timestmp`, `ethereumvalue`) VALUES
@@ -950,14 +945,13 @@ INSERT INTO `ethereumdata` (`timestmp`, `ethereumvalue`) VALUES
 /*!40000 ALTER TABLE `ethereumdata` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.litecoindata
-DROP TABLE IF EXISTS `litecoindata`;
 CREATE TABLE IF NOT EXISTS `litecoindata` (
   `timestmp` bigint(20) NOT NULL,
   `litecoinvalue` double NOT NULL,
   PRIMARY KEY (`timestmp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.litecoindata: ~322 rows (approximately)
+-- Dumping data for table cryptxmaster.litecoindata: ~427 rows (approximately)
 DELETE FROM `litecoindata`;
 /*!40000 ALTER TABLE `litecoindata` DISABLE KEYS */;
 INSERT INTO `litecoindata` (`timestmp`, `litecoinvalue`) VALUES
@@ -1391,7 +1385,6 @@ INSERT INTO `litecoindata` (`timestmp`, `litecoinvalue`) VALUES
 /*!40000 ALTER TABLE `litecoindata` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.portfolio
-DROP TABLE IF EXISTS `portfolio`;
 CREATE TABLE IF NOT EXISTS `portfolio` (
   `portfolioid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
@@ -1404,11 +1397,11 @@ CREATE TABLE IF NOT EXISTS `portfolio` (
   CONSTRAINT `portfolio_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.portfolio: ~6 rows (approximately)
+-- Dumping data for table cryptxmaster.portfolio: ~7 rows (approximately)
 DELETE FROM `portfolio`;
 /*!40000 ALTER TABLE `portfolio` DISABLE KEYS */;
 INSERT INTO `portfolio` (`portfolioid`, `userid`, `amount`, `bitcoin`, `ethereum`, `litecoin`) VALUES
-	(1, 2, 3000000, 0.5, 0.5, 0.1),
+	(1, 2, 3000000, 0.5, 0.6, 0.1),
 	(2, 1, 100000, 0.1, 100, 100),
 	(3, 4, 0, 0, 0, 0),
 	(4, 16, 10091, 4.9, 5, 100),
@@ -1418,7 +1411,6 @@ INSERT INTO `portfolio` (`portfolioid`, `userid`, `amount`, `bitcoin`, `ethereum
 /*!40000 ALTER TABLE `portfolio` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.portfolio_hourly
-DROP TABLE IF EXISTS `portfolio_hourly`;
 CREATE TABLE IF NOT EXISTS `portfolio_hourly` (
   `portfolioid` int(10) NOT NULL,
   `userid` int(10) NOT NULL,
@@ -1430,7 +1422,7 @@ CREATE TABLE IF NOT EXISTS `portfolio_hourly` (
   PRIMARY KEY (`portfolioid`,`userid`,`timestmp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.portfolio_hourly: ~0 rows (approximately)
+-- Dumping data for table cryptxmaster.portfolio_hourly: ~84 rows (approximately)
 DELETE FROM `portfolio_hourly`;
 /*!40000 ALTER TABLE `portfolio_hourly` DISABLE KEYS */;
 INSERT INTO `portfolio_hourly` (`portfolioid`, `userid`, `timestmp`, `bitcoin`, `ethereum`, `litecoin`, `amount`) VALUES
@@ -1521,7 +1513,6 @@ INSERT INTO `portfolio_hourly` (`portfolioid`, `userid`, `timestmp`, `bitcoin`, 
 /*!40000 ALTER TABLE `portfolio_hourly` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.user
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `userid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `password` varchar(50) NOT NULL,
@@ -1538,12 +1529,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `ssn` (`ssn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.user: ~6 rows (approximately)
+-- Dumping data for table cryptxmaster.user: ~7 rows (approximately)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`userid`, `password`, `name`, `email`, `phone`, `ssn`, `address`, `city`, `country`, `postalcode`) VALUES
 	(1, 'pranav', 'Pranav Chauthaiwale', 'cpranav1@umbc.edu', '4104249089', '4666666664', 'Chapel', 'Baltimore', 'USA', '21227'),
-	(2, 'qwerty', 'aSasVineet', 'vineeta1@umbc.edu', '4104249088', '555339999ddasdasdasd', 'Belwoodsad', 'Arbutus', 'USA', '21227'),
+	(2, 'qwerty', 'Vineet Ahirkar', 'vineeta1@umbc.edu', '240 230 2969', '555339999', '4754, Belwood Green', 'Baltimore', 'United States', '21227'),
 	(4, 'prasad', 'Prasad', 'prasad@prasad.com', '1234567890', '222668888', 'Aldgate', 'Arbutus', 'USA', '21227'),
 	(16, 'prasadprasad', 'Prasad Akmar', 'prasad@gmail.com', '4436486812', '111222333', '4761, Aldgate Grn, Arbutus', 'Baltimore', 'United States', '21227'),
 	(17, 'pass', 'Ved', 'ved@chavan.com', '4438214985', '112638795', 'Belwood', 'Arbutus', 'United States', '21227'),
@@ -1552,7 +1543,6 @@ INSERT INTO `user` (`userid`, `password`, `name`, `email`, `phone`, `ssn`, `addr
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.usertransaction
-DROP TABLE IF EXISTS `usertransaction`;
 CREATE TABLE IF NOT EXISTS `usertransaction` (
   `transactionid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `portfolioid` int(10) unsigned NOT NULL,
@@ -1569,7 +1559,7 @@ CREATE TABLE IF NOT EXISTS `usertransaction` (
   CONSTRAINT `transac_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.usertransaction: ~61 rows (approximately)
+-- Dumping data for table cryptxmaster.usertransaction: ~77 rows (approximately)
 DELETE FROM `usertransaction`;
 /*!40000 ALTER TABLE `usertransaction` DISABLE KEYS */;
 INSERT INTO `usertransaction` (`transactionid`, `portfolioid`, `userid`, `type`, `currency`, `numberofcoins`, `transactionamount`, `transactiontime`) VALUES
@@ -1649,11 +1639,11 @@ INSERT INTO `usertransaction` (`transactionid`, `portfolioid`, `userid`, `type`,
 	(75, 1, 2, 'Withdraw', 'USD', 1000000, 1000000, 1512448126),
 	(76, 5, 17, 'BUY', 'Bitcoin', 2, 23241, 1512448534),
 	(77, 1, 2, 'Withdraw', 'USD', 10000000, 10000000, 1512448615),
-	(78, 1, 2, 'Withdraw', 'USD', 675000000, 675000000, 1512448636);
+	(78, 1, 2, 'Withdraw', 'USD', 675000000, 675000000, 1512448636),
+	(79, 1, 2, 'BUY', 'Ethereum', 0.1, 46.792, 1512454687);
 /*!40000 ALTER TABLE `usertransaction` ENABLE KEYS */;
 
 -- Dumping structure for table cryptxmaster.wallet
-DROP TABLE IF EXISTS `wallet`;
 CREATE TABLE IF NOT EXISTS `wallet` (
   `walletid` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
@@ -1663,11 +1653,11 @@ CREATE TABLE IF NOT EXISTS `wallet` (
   CONSTRAINT `wallet_usr_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cryptxmaster.wallet: ~4 rows (approximately)
+-- Dumping data for table cryptxmaster.wallet: ~6 rows (approximately)
 DELETE FROM `wallet`;
 /*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
 INSERT INTO `wallet` (`walletid`, `userid`, `amount`) VALUES
-	(1, 2, 3000000),
+	(1, 2, 2999953),
 	(2, 16, 10091),
 	(3, 17, 56861),
 	(6, 20, 0),
